@@ -60,6 +60,56 @@ async.series({
 			}
 		});
 	},
+	installBull:function(callback){
+		console.log('\n\n\n---------------------------------------');
+		inquirer.prompt([
+			{
+				type: 'confirm',
+				name: 'bull',
+				message: 'Do you want to install Bull?',
+			},
+		]).then(answers => {
+			if(answers.bull){
+				var sails_folder = process.cwd();
+				var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
+				// console.log(sails_folder);
+				// console.log(package_folder);
+				
+				if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
+				    console.log('BullController already exists. It will be over written.');
+
+				cpx.copySync(package_folder+'/bull/controllers/*', sails_folder+'/api/controllers');
+				cpx.copySync(package_folder+'/bull/views/**', sails_folder+'/views');
+				if(fs.existsSync(sails_folder+'/api/controllers/BullController.js') && fs.existsSync(sails_folder+'/views/bull/index.ejs')){
+					console.log("Bull installation successful \
+						\nOnly controllers and views are setup. \
+						\nYou will need to define the routes and policies manually.\
+						\n\
+						\n### Add this to routes.js ###\
+						\n'GET /bull':'BullController.index',\
+						\n'GET /bull/:state':'BullController.listItemsInKue',\
+						\n'POST /bull/retry':'BullController.retryJob',\
+						\n'POST /bull/delete':'BullController.deleteJob',\
+						\n\
+						\n### Update policy.js ###\
+						\nBullController:{\
+						\n  '*':['isAuthenticated','isAdmin']\
+						\n},\
+						\n\
+						\nThis assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.\
+					");
+
+
+				}else{
+					console.log('bull installation failed');
+				}
+				callback(null);
+			}else{
+				console.log('Bull installation skipped');
+				callback(null);
+			}
+		});
+	},
 	installSomethingElse:function(callback){
 		console.log('\n\n\n---------------------------------------');
 		inquirer.prompt([
