@@ -1,0 +1,25 @@
+{
+  "name": "sails-business-stack-generator",
+  "version": "1.0.0",
+  "description": "helper to setup business stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexjv89/sails-business-stack-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexjv89/sails-business-stack-generator/issues"
+  },
+  "homepage": "https://github.com/alexjv89/sails-business-stack-generator#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "cpx": "^1.5.0",
+    "inquirer": "^6.2.1",
+    "path": "^0.12.7"
+  }
+}
