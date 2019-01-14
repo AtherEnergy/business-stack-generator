@@ -1,13 +1,11 @@
 var path = require('path');
 var fs = require('fs');
 var cpx = require('cpx');
+
+var sails_folder = process.cwd();
+var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
 module.exports={
-	installBull:function(callback){
-		var sails_folder = process.cwd();
-		var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
-		// console.log(sails_folder);
-		// console.log(package_folder);
-		
+	installBull:function(callback){		
 		if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
 		    console.log('BullController already exists. It will be over written.');
 
@@ -37,8 +35,6 @@ module.exports={
 		callback(null);
 	},
 	installKue:function(callback){
-		var sails_folder = process.cwd();
-		var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
 		
 		if (fs.existsSync(sails_folder+'/api/controllers/KueController.js'))
 		    console.log('KueController already exists. It will be over written.');
@@ -71,7 +67,37 @@ module.exports={
 		callback(null);
 	},
 	installUserLogin:function(callback){
-		console.log('installed user login');
+
+		if (fs.existsSync(sails_folder+'/api/controllers/AuthController.js'))
+		    console.log('AuthController already exists. It will be over written.');
+
+		cpx.copySync(package_folder+'/user-login/controllers/*', sails_folder+'/api/controllers');
+		cpx.copySync(package_folder+'/user-login/models/*', sails_folder+'/api/models');
+		cpx.copySync(package_folder+'/user-login/views/**', sails_folder+'/views');
+		if(fs.existsSync(sails_folder+'/api/controllers/AuthController.js') && fs.existsSync(sails_folder+'/views/login.ejs')){
+			console.log("Auth installation successful \
+				\nOnly controllers and views are setup. \
+				\nYou will need to define the routes and policies manually.\
+				\n\
+				\n### Add this to routes.js ###\
+				\n'GET /kue':'KueController.index',\
+				\n'GET /kue/:state':'KueController.listItemsInKue',\
+				\n'POST /kue/retry':'KueController.retryJob',\
+				\n'POST /kue/delete':'KueController.deleteJob',\
+				\n\
+				\n### Update policy.js ###\
+				\nKueController:{\
+				\n  '*':['isAuthenticated','isAdmin']\
+				\n},\
+				\n\
+				\nThis assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.\
+			");
+
+
+		}else{
+			console.log('kue installation failed');
+		}
+		// console.log('installed user login');
 		callback(null);
-	}
+	},
 }
