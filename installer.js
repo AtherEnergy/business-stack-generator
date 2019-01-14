@@ -100,4 +100,14 @@ module.exports={
 		// console.log('installed user login');
 		callback(null);
 	},
+	installSemanticUI:function(callback){
+		cpx.copySync(package_folder+'/assets/semantic/*', sails_folder+'/assets/semantic');
+		console.log("\--------------------------------------------------------------------------------\
+			\n Semantic installed \
+			\n ### Add this to views/layout.ejs ###\
+			\n <link rel='stylesheet' type='text/css' href='/semantic/semantic.min.css'>\
+			\n--------------------------------------------------------------------------------\
+		");
+		callback(null);
+	},
 }

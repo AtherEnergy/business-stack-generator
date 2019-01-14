@@ -82,7 +82,12 @@ var installSpecific=function(callback){
 			type: 'list',
 			name: 'install_what',
 			message: 'What would you like to install?',
-			choices:['bull','user-login','kue']
+			choices:[
+			'bull',
+			'user-login',
+			'kue',
+			'semantic',
+			]
 		},
 	]).then(answers => {
 		switch (answers.install_what){
@@ -94,6 +99,9 @@ var installSpecific=function(callback){
 				break;
 			case 'kue':
 				installer.installKue(callback);
+				break;
+			case 'semantic':
+				installer.installSemanticUI(callback);
 				break;
 		}
 		// callback(null);
@@ -139,7 +147,7 @@ var main = function(callback){
 }
 
 main(function(err,results){
-	console.log('-------------- we are all done --------------');
+	console.log('we are all done');
 })
 
 
