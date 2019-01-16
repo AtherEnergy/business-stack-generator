@@ -83,10 +83,11 @@ var installSpecific=function(callback){
 			name: 'install_what',
 			message: 'What would you like to install?',
 			choices:[
-			'bull',
-			'user-login',
-			'kue',
-			'semantic',
+				'bull',
+				'user-login',
+				'kue',
+				'semantic',
+				'logging',
 			]
 		},
 	]).then(answers => {
@@ -102,6 +103,9 @@ var installSpecific=function(callback){
 				break;
 			case 'semantic':
 				installer.installSemanticUI(callback);
+				break;
+			case 'logging':
+				installer.installLogging(callback);
 				break;
 		}
 		// callback(null);

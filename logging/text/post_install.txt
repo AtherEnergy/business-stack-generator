@@ -1,0 +1,31 @@
+------------------------------------------
+  No files to add for logging. Logging is implemented as a library in sails-helpers
+
+  #######################################
+  Manual intervention required: 
+  
+  ### 1) Add this: 
+    "sails-helper": "git+https://git@github.com/aptro/sails-helper.git#1.2.0",
+  to - package.json
+  --------
+  ### 2) Make sure your http middleware looks something like this: 
+    middleware: {
+      order: [
+        'startRequestTimer',
+        'cookieParser',
+        'session',
+        'passportInit',     
+        'passportSession',
+        'bodyParser',
+        'myRequestLogger',
+        'compress',
+        'poweredBy',
+        'router',
+        'www',
+        'favicon'
+      ],
+      startRequestTimer: require('sails-helper').startRequestTimer,
+      myRequestLogger: require('sails-helper').requestLogger,
+    }
+    Basically 'startRequestTimer' should be at the top. 'myRequestLogger' can come after 'bodyParser'
+------------------------------------------

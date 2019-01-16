@@ -97,4 +97,9 @@ module.exports={
 		");
 		callback(null);
 	},
+	installLogging:function(callback){
+		var buf = fs.readFileSync(package_folder+'/logging/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
+	},
 }
