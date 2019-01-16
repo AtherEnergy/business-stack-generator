@@ -1,0 +1,64 @@
+------------------------------------------
+  User login is setup. The following is added
+  /api/models/User.js - User model 
+  /api/views/login.ejs - Login paage
+  /api/views/signup.ejs - Signup page
+  /api/controllers/AuthController.js - Login/sign up controllers
+  /api/policies/isAUthenticated - Policy for permitting only logged in user to access this resource
+
+
+  #######################################
+  Manual intervention required: 
+  
+  ### 1) Add this: 
+    'GET /login': 'AuthController.login',
+    'POST /login': 'AuthController.login',
+    'GET /signup': 'AuthController.signup',
+    'POST /signup': 'AuthController.signup',
+    'GET /logout': 'AuthController.logout',
+    'GET /forgot': 'AuthController.view_forgot',
+    'POST /forgot': 'AuthController.forgot',
+    'GET /reset': 'AuthController.view_reset',
+    'POST /reset': 'AuthController.reset',
+  to - /config/routes.js
+  --------
+  ### 2) Add this 
+    AuthController:{
+      '*':true
+    }
+  to - /config/policies
+  --------
+  ### 3) Apply isAuthenticated policy to controllers that can only be accessed if logged in. Something like
+    MainController:{
+      '*':['isAuthenticated']
+    }  
+  --------
+  ### 4) Make sure your http middleware looks something like this: 
+    middleware: {
+      passportInit    : require('passport').initialize(),
+      passportSession : require('passport').session(),
+      order: [
+        'cookieParser',
+        'session',
+        'passportInit',     
+        'passportSession',
+        'bodyParser',
+        'handleBodyParserError',
+        'compress',
+        'methodOverride',
+        'poweredBy',
+        'router',
+        'www',
+        'favicon',
+        '404',
+        '500'
+      ],
+    }
+    Basically 'passportInit' and 'passportSession' needs to be in the middle ware between 'session' and 'bodyParser'. If you have custom request logger, then it can come after 'passportSession' and 'bodyParser'
+  --------
+  ### 5) install the following packages 
+    npm install passport passport-local bcryptjs
+
+
+
+------------------------------------------

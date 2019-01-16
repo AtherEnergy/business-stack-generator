@@ -27,10 +27,10 @@ module.exports = {
 			type:'string',
 			required:true,
 		},
-		customToJSON: function() {
-			// Return a shallow copy of this record with the password and ssn removed.
-			return _.omit(this, ['password']);
-		}
+	},
+	customToJSON: function() {
+		// Return a shallow copy of this record with the password and ssn removed.
+		return _.omit(this, ['password']);
 	},
 	beforeCreate: function(user, cb) {
 		bcrypt.genSalt(10, function(err, salt) {

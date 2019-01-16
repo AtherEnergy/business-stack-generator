@@ -73,26 +73,13 @@ module.exports={
 
 		cpx.copySync(package_folder+'/user-login/controllers/*', sails_folder+'/api/controllers');
 		cpx.copySync(package_folder+'/user-login/models/*', sails_folder+'/api/models');
+		cpx.copySync(package_folder+'/user-login/services/**', sails_folder+'/api/services');
+		cpx.copySync(package_folder+'/user-login/policies/**', sails_folder+'/api/policies');
 		cpx.copySync(package_folder+'/user-login/views/**', sails_folder+'/views');
-		if(fs.existsSync(sails_folder+'/api/controllers/AuthController.js') && fs.existsSync(sails_folder+'/views/login.ejs')){
-			console.log("Auth installation successful \
-				\nOnly controllers and views are setup. \
-				\nYou will need to define the routes and policies manually.\
-				\n\
-				\n### Add this to routes.js ###\
-				\n'GET /kue':'KueController.index',\
-				\n'GET /kue/:state':'KueController.listItemsInKue',\
-				\n'POST /kue/retry':'KueController.retryJob',\
-				\n'POST /kue/delete':'KueController.deleteJob',\
-				\n\
-				\n### Update policy.js ###\
-				\nKueController:{\
-				\n  '*':['isAuthenticated','isAdmin']\
-				\n},\
-				\n\
-				\nThis assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.\
-			");
 
+		if(fs.existsSync(sails_folder+'/api/controllers/AuthController.js') && fs.existsSync(sails_folder+'/views/login.ejs')){
+			var buf = fs.readFileSync(package_folder+'/user-login/text/post_install.txt');
+			console.log(buf.toString());
 
 		}else{
 			console.log('kue installation failed');
