@@ -98,6 +98,7 @@ module.exports={
 		callback(null);
 	},
 	installLogging:function(callback){
+		cpx.copySync(package_folder+'/logging/config/**', sails_folder+'/config');
 		var buf = fs.readFileSync(package_folder+'/logging/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);

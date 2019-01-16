@@ -1,5 +1,6 @@
 ------------------------------------------
-  No files to add for logging. Logging is implemented as a library in sails-helpers
+  Logging is implemented as a library in sails-helpers. 
+  /config/log.js is overwritten
 
   #######################################
   Manual intervention required: 
@@ -28,4 +29,6 @@
       myRequestLogger: require('sails-helper').requestLogger,
     }
     Basically 'startRequestTimer' should be at the top. 'myRequestLogger' can come after 'bodyParser'
+  ### 3) Production log level
+    By default sails 1.x.x has log level as debug in production.js request log is printed as info. comment out log level in production.js
 ------------------------------------------
