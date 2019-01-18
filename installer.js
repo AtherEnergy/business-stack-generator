@@ -88,7 +88,7 @@ module.exports={
 		callback(null);
 	},
 	installSemanticUI:function(callback){
-		cpx.copySync(package_folder+'/assets/semantic/*', sails_folder+'/assets/semantic');
+		cpx.copySync(package_folder+'/assets/semantic/**', sails_folder+'/assets/semantic');
 		console.log("\--------------------------------------------------------------------------------\
 			\n Semantic installed \
 			\n ### Add this to views/layout.ejs ###\
