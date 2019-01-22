@@ -20,6 +20,10 @@
     'POST /forgot': 'AuthController.forgot',
     'GET /reset': 'AuthController.view_reset',
     'POST /reset': 'AuthController.reset',
+    'GET /forgot': 'AuthController.view_forgot',
+    'POST /forgot': 'AuthController.forgot',
+    'GET /reset': 'AuthController.view_reset',
+    'POST /reset': 'AuthController.reset',
   to - /config/routes.js
   --------
   ### 2) Add this 
@@ -57,7 +61,7 @@
     Basically 'passportInit' and 'passportSession' needs to be in the middle ware between 'session' and 'bodyParser'. If you have custom request logger, then it can come after 'passportSession' and 'bodyParser'
   --------
   ### 5) install the following packages 
-    npm install passport passport-local bcryptjs
+    npm install passport passport-local bcryptjs jsonwebtoken mailgun-js --save
 
 
 
