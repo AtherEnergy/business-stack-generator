@@ -5,11 +5,11 @@ var cpx = require('cpx');
 var sails_folder = process.cwd();
 
 
-//usefull if someone does a global installation
+//usefull if someone does a global installation and also helpfull for version update.
 var check_if_already_installed =require('child_process').execSync('npm list --depth=0 sails-business-stack-generator');
-if(!check_if_already_installed.toString('utf8').includes('github.com/alexjv89/sails-business-stack-generator'))
+if(!check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.1.1') )
 	require('child_process').execSync(
- 		'npm install --save-dev https://github.com/alexjv89/sails-business-stack-generator.git',
+ 		'npm install --save-dev sails-business-stack-generator',
     	{stdio: 'inherit'}
 	);
 // 
