@@ -1,0 +1,16 @@
+------------------------------------------
+  ratelimit policy is setup.. The following is added
+  /api/policies/rateLimit.js - ratelimit policy 
+
+  #######################################
+  Manual intervention required: 
+  
+  ### 1)  npm install git@github.com:aptro/sails-helper.git --save
+  
+
+  ### 2) Apply rateLimit policy to controllers. Something like
+    AuthController:{
+      '*':['rateLimit']
+    }  
+
+------------------------------------------

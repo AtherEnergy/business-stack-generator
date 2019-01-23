@@ -3,6 +3,17 @@ var fs = require('fs');
 var cpx = require('cpx');
 
 var sails_folder = process.cwd();
+
+
+//usefull if someone does a global installation and also helpfull for version update.
+var check_if_already_installed =require('child_process').execSync('npm list --depth=0 sails-business-stack-generator');
+if(!check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.1.1') )
+	require('child_process').execSync(
+ 		'npm install --save-dev sails-business-stack-generator',
+    	{stdio: 'inherit'}
+	);
+// 
+
 var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
 module.exports={
 	installBull:function(callback){		
@@ -103,4 +114,10 @@ module.exports={
 		console.log(buf.toString());
 		callback(null);
 	},
+	installRateLimit:function(callback){
+		cpx.copySync(package_folder+'/rateLimit/policies/**', sails_folder+'/api/policies');
+		var buf = fs.readFileSync(package_folder+'/rateLimit/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
+	}
 }
