@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cpx = require('cpx');
 var inquirer = require('inquirer');
 var async = require('async');
@@ -88,6 +90,7 @@ var installSpecific=function(callback){
 				'kue',
 				'semantic',
 				'logging',
+				'ratelimit-policy'
 			]
 		},
 	]).then(answers => {
@@ -106,6 +109,9 @@ var installSpecific=function(callback){
 				break;
 			case 'logging':
 				installer.installLogging(callback);
+				break;
+			case 'ratelimit-policy':
+				installer.installRateLimit(callback);
 				break;
 		}
 		// callback(null);
