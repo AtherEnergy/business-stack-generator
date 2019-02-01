@@ -90,7 +90,8 @@ var installSpecific=function(callback){
 				'kue',
 				'semantic',
 				'logging',
-				'ratelimit-policy'
+				'ratelimit-policy',
+				'sendgrid',
 			]
 		},
 	]).then(answers => {
@@ -112,6 +113,9 @@ var installSpecific=function(callback){
 				break;
 			case 'ratelimit-policy':
 				installer.installRateLimit(callback);
+				break;
+			case 'sendgrid':
+				installer.installSendgrid(callback);
 				break;
 		}
 		// callback(null);

@@ -119,5 +119,12 @@ module.exports={
 		var buf = fs.readFileSync(package_folder+'/rateLimit/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
-	}
+	},
+	installSendgrid:function(callback){
+		cpx.copySync(package_folder+'/sendgrid/config/**', sails_folder+'/config');
+		cpx.copySync(package_folder+'/sendgrid/services/**', sails_folder+'/api/services');
+		var buf = fs.readFileSync(package_folder+'/sendgrid/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
+	},
 }
