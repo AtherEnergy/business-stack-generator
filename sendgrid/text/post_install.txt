@@ -1,0 +1,15 @@
+------------------------------------------
+  Sendgrid as a service is generated. 
+  /api/services/SendgridService.js created
+  /api/config/sendgrid.js created
+
+  #######################################
+  Manual intervention required: 
+  
+  ### 1) Npm install sendgrid: 
+    npm install @sendgrid/mail --save
+  --------
+  ### 2) Update /api/config/sendgrid.js
+    - modify api key
+    - modify default from name and email
+------------------------------------------

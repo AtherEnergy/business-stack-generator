@@ -6,6 +6,10 @@
  */
 
 var passport = require('passport');
+var request = require('request');
+var async = require('async');
+var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
 
 module.exports = {
 

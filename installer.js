@@ -126,5 +126,23 @@ module.exports={
 		var buf = fs.readFileSync(package_folder+'/rateLimit/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
-	}
+	},
+	installSendgrid:function(callback){
+		cpx.copySync(package_folder+'/sendgrid/config/**', sails_folder+'/config');
+		cpx.copySync(package_folder+'/sendgrid/services/**', sails_folder+'/api/services');
+		var buf = fs.readFileSync(package_folder+'/sendgrid/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
+	},
+	installTrix:function(callback){
+		cpx.copySync(package_folder+'/assets/trix/**', sails_folder+'/assets/trix');
+		console.log("\--------------------------------------------------------------------------------\
+			\n Trix assets installed \
+			\n ### Add this to pages where you want to use trix ###\
+			\n <link rel='stylesheet' type='text/css' href='/trix/trix.css'> \
+			\n <script type='text/javascript' src='/trix/trix.js'></script> \
+			\n--------------------------------------------------------------------------------\
+		");
+		callback(null);
+	},
 }
