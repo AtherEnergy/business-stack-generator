@@ -3,17 +3,19 @@
 	<div class='ui container'>
 	 
 			
-		<h3>Items in kue - <%=state%></h3>
+		<h3>Items in queue - <%=state%></h3>
 		<table class="ui celled structured table">
 			<thead>
 				<tr>
 					<th>ID</th>
+					<th class="single line">Name</th>
 					<th class="single line">Title</th>
 					<th>Progress</th>
 					<!-- <th>Currency</th> -->
-					<th>State</th>
-					<th>Created At</th>
-					<th>Updated At</th>
+					<!-- <th>State</th> -->
+					<th>Timestamp</th>
+					<th>Processed On</th>
+					<th>Finished On</th>
 					<th>Retry</th>
 					<th>Delete</th>
 					
@@ -24,14 +26,24 @@
 					<tr>
 						<td><a href="" class='job_id' data-id='<%=job.id%>'><%=job.id%></a></td>
 
-						<td><%-job.data.title.substring(0,150)%></td>
+						<td>
+							<%if(job.name){%>
+							<%-job.name.substring(0,150)%>
+							<%}%>
+						</td>
+						<td>
+							<%if(job.data.title){%>
+							<%-job.data.title.substring(0,150)%>
+							<%}%>
+						</td>
 						<td><%=job.progress%></td>
-						<td><%=job.state%></td>
+						<!-- <td><%=job.state%></td> -->
 						<!-- <td></td> -->
-						<td><%=job.created_at%></td>
-						<td><%=job.updated_at%></td>
+						<td><%=job.timestamp%></td>
+						<td><%=job.processedOn%></td>
+						<td><%=job.finishedOn%></td>
 						<td class="center aligned">
-							<button class="circular green ui icon button retry_job" data-id='<%=job.id%>'>
+							<button class="<%-state!='failed'?'disabled':''%> circular green ui icon button retry_job" data-id='<%=job.id%>'>
 								<i class="icon refresh"></i>
 							</button>
 						</td>
@@ -67,7 +79,7 @@
 			$(button).addClass('loading');
 			var job_id=$(this).attr('data-id');
 			// var job_id='';
-			$.post("/kue/retry", {job_id: job_id}, function(result,status){
+			$.post("/bull/retry", {job_id: job_id}, function(result,status){
 				console.log('result = '+result);
 				console.log('status = '+status);// this runs only on sucess
 				if(status=='success'){
@@ -84,7 +96,7 @@
 			// var job_id='';
 			var r = confirm("Delete this permanently ?");
 			if (r == true) {
-				$.post("/kue/delete", {job_id: job_id}, function(result,status){
+				$.post("/bull/delete", {job_id: job_id}, function(result,status){
 				console.log('result = '+result);
 				console.log('status = '+status);// this runs only on sucess
 				if(status=='success'){

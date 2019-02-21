@@ -1,0 +1,39 @@
+------------------------------------------
+
+Bull installation successful 
+Only controllers and views are setup.
+You will need to define the routes and policies manually.
+
+#######################################
+  Manual intervention required: 
+
+1) ### Add this to routes.js ###
+'GET /bull':'BullController.index',
+'GET /bull/:state':'BullController.listItems',
+'POST /bull/retry':'BullController.retryJob',
+'POST /bull/delete':'BullController.deleteJob',
+'POST /bull/repeat/delete':'BullController.deleteRepeatJob',
+
+2) ### Update policy.js ###
+BullController:{\
+  '*':['isAuthenticated','isAdmin']
+},
+This assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.
+
+3) ### Setup repeat jobs ###
+Create a file 'config/bull.js'
+Add this to config/bull.js
+module.exports.bull = {
+    //generate cron format using: https://crontab.guru
+    repeats: [
+        {
+            name: 'my_repeat_task_name',
+            active: true,
+            repeat: { cron: "*/10 * * * *" }, //repeat every 10 minutess
+            data: {}
+        }
+    ]
+}
+Start adding repeats jobs
+
+------------------------------------------
