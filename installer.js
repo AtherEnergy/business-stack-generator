@@ -8,13 +8,13 @@ var sails_folder = process.cwd();
 //usefull if someone does a global installation and also helpfull for version update.
 var check_if_already_installed;
 try{
-	check_if_already_installed = checrequire('child_process').execSync('npm list --depth=0 sails-business-stack-generator');
+	check_if_already_installed = require('child_process').execSync('npm list --depth=0 sails-business-stack-generator');
 }
 catch(err){
 	console.log('error:sails-business-stack-generator not installed as a dev dependency')
 }
 
-if(!check_if_already_installed || !check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.1.1') )
+if(!check_if_already_installed || !check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.2.1') )
 	require('child_process').execSync(
  		'npm install --save-dev sails-business-stack-generator@latest',
     	{stdio: 'inherit'}
@@ -23,35 +23,6 @@ if(!check_if_already_installed || !check_if_already_installed.toString('utf8').i
 
 var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
 module.exports={
-	installBull:function(callback){		
-		if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
-		    console.log('BullController already exists. It will be over written.');
-
-		cpx.copySync(package_folder+'/bull/controllers/*', sails_folder+'/api/controllers');
-		cpx.copySync(package_folder+'/bull/views/**', sails_folder+'/views');
-		if(fs.existsSync(sails_folder+'/api/controllers/BullController.js') && fs.existsSync(sails_folder+'/views/bull/index.ejs')){
-			console.log("Bull installation successful \
-				\nOnly controllers and views are setup. \
-				\nYou will need to define the routes and policies manually.\
-				\n\
-				\n### Add this to routes.js ###\
-				\n'GET /bull':'BullController.index',\
-				\n'GET /bull/:state':'BullController.listItems',\
-				\n'POST /bull/retry':'BullController.retryJob',\
-				\n'POST /bull/delete':'BullController.deleteJob',\
-				\n\
-				\n### Update policy.js ###\
-				\nBullController:{\
-				\n  '*':['isAuthenticated','isAdmin']\
-				\n},\
-				\n\
-				\nThis assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.\
-			");
-		}else{
-			console.log('bull installation failed');
-		}
-		callback(null);
-	},
 	installKue:function(callback){
 		
 		if (fs.existsSync(sails_folder+'/api/controllers/KueController.js'))
@@ -132,6 +103,20 @@ module.exports={
 		cpx.copySync(package_folder+'/sendgrid/services/**', sails_folder+'/api/services');
 		var buf = fs.readFileSync(package_folder+'/sendgrid/text/post_install.txt');
 		console.log(buf.toString());
+		callback(null);
+	},
+	installBull:function(callback){		
+		if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
+		    console.log('BullController already exists. It will be over written.');
+
+		cpx.copySync(package_folder+'/bull/controllers/*', sails_folder+'/api/controllers');
+		cpx.copySync(package_folder+'/bull/views/**', sails_folder+'/views');
+		if(fs.existsSync(sails_folder+'/api/controllers/BullController.js') && fs.existsSync(sails_folder+'/views/bull/index.ejs')){
+			var buf = fs.readFileSync(package_folder+'/bull/text/post_install.txt');
+			console.log(buf.toString());
+		}else{
+			console.log('bull installation failed');
+		}
 		callback(null);
 	},
 	installTrix:function(callback){
