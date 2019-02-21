@@ -14,7 +14,7 @@ catch(err){
 	console.log('error:sails-business-stack-generator not installed as a dev dependency')
 }
 
-if(!check_if_already_installed || !check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.2.1') )
+if(!check_if_already_installed || !check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.2.2') )
 	require('child_process').execSync(
  		'npm install --save-dev sails-business-stack-generator@latest',
     	{stdio: 'inherit'}
