@@ -92,6 +92,7 @@ var installSpecific=function(callback){
 				'logging',
 				'ratelimit-policy',
 				'sendgrid',
+				'trix',
 			]
 		},
 	]).then(answers => {
@@ -116,6 +117,9 @@ var installSpecific=function(callback){
 				break;
 			case 'sendgrid':
 				installer.installSendgrid(callback);
+				break;
+			case 'trix':
+				installer.installTrix(callback);
 				break;
 		}
 		// callback(null);

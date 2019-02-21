@@ -127,4 +127,15 @@ module.exports={
 		console.log(buf.toString());
 		callback(null);
 	},
+	installTrix:function(callback){
+		cpx.copySync(package_folder+'/assets/trix/**', sails_folder+'/assets/trix');
+		console.log("\--------------------------------------------------------------------------------\
+			\n Trix assets installed \
+			\n ### Add this to pages where you want to use trix ###\
+			\n <link rel='stylesheet' type='text/css' href='/trix/trix.css'> \
+			\n <script type='text/javascript' src='/trix/trix.js'></script> \
+			\n--------------------------------------------------------------------------------\
+		");
+		callback(null);
+	},
 }
