@@ -5,17 +5,8 @@ var cpx = require('cpx');
 var sails_folder = process.cwd();
 
 
-//usefull if someone does a global installation and also helpfull for version update.
-var check_if_already_installed;
-try{
-	check_if_already_installed = require('child_process').execSync('npm list --depth=0 sails-business-stack-generator');
-}
-catch(err){
-	console.log('error:sails-business-stack-generator not installed as a dev dependency')
-}
-
-if(!check_if_already_installed || !check_if_already_installed.toString('utf8').includes('sails-business-stack-generator@1.2.2') )
-	require('child_process').execSync(
+// install the latest version as dev dependency.
+require('child_process').execSync(
  		'npm install --save-dev sails-business-stack-generator@latest',
     	{stdio: 'inherit'}
 	);

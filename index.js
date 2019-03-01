@@ -6,12 +6,6 @@ var async = require('async');
 var path = require('path');
 var fs = require('fs');
 var installer =  require('./installer');
-// cpx.copySync('kue/controllers/*', '../../api/controllers');
-// cpx.copySync('kue/views/**', '../../views');
-// // cpx.copySync('kue/**', '../../api/');
-// console.log('inside generator\'s index.js');
-// console.log('inside generator\'s index.js');
-// console.log(process.cwd());
 
 var initialize=function(outer_cb){
 	async.series({
