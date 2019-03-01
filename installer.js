@@ -23,38 +23,6 @@ if(!check_if_already_installed || !check_if_already_installed.toString('utf8').i
 
 var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
 module.exports={
-	installKue:function(callback){
-		
-		if (fs.existsSync(sails_folder+'/api/controllers/KueController.js'))
-		    console.log('KueController already exists. It will be over written.');
-
-		cpx.copySync(package_folder+'/kue/controllers/*', sails_folder+'/api/controllers');
-		cpx.copySync(package_folder+'/kue/views/**', sails_folder+'/views');
-		if(fs.existsSync(sails_folder+'/api/controllers/KueController.js') && fs.existsSync(sails_folder+'/views/kue/index.ejs')){
-			console.log("Kue installation successful \
-				\nOnly controllers and views are setup. \
-				\nYou will need to define the routes and policies manually.\
-				\n\
-				\n### Add this to routes.js ###\
-				\n'GET /kue':'KueController.index',\
-				\n'GET /kue/:state':'KueController.listItemsInKue',\
-				\n'POST /kue/retry':'KueController.retryJob',\
-				\n'POST /kue/delete':'KueController.deleteJob',\
-				\n\
-				\n### Update policy.js ###\
-				\nKueController:{\
-				\n  '*':['isAuthenticated','isAdmin']\
-				\n},\
-				\n\
-				\nThis assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.\
-			");
-
-
-		}else{
-			console.log('kue installation failed');
-		}
-		callback(null);
-	},
 	installUserLogin:function(callback){
 
 		if (fs.existsSync(sails_folder+'/api/controllers/AuthController.js'))

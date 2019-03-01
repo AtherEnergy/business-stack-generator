@@ -15,24 +15,6 @@ var installer =  require('./installer');
 
 var initialize=function(outer_cb){
 	async.series({
-		installKue:function(callback){
-			console.log('\n\n\n---------------------------------------');
-			inquirer.prompt([
-				{
-					type: 'confirm',
-					name: 'kue',
-					message: 'Do you want to install Kue?',
-				},
-			]).then(answers => {
-				// this should show up
-				if(answers.kue){
-					installer.installKue(callback);
-				}else{
-					console.log('Kue installation skipped');
-					callback(null);
-				}
-			});
-		},
 		installBull:function(callback){
 			console.log('\n\n\n---------------------------------------');
 			inquirer.prompt([
