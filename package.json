@@ -1,6 +1,6 @@
 {
   "name": "sails-business-stack-generator",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "helper to setup business stack",
   "main": "index.js",
   "scripts": {
