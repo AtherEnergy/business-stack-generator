@@ -1,21 +1,21 @@
 {
-  "name": "sails-business-stack-generator",
-  "version": "1.2.4",
-  "description": "helper to setup business stack",
+  "name": "business-stack-generator",
+  "version": "1.2.5",
+  "description": "This sets up a business stack on sailsjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexjv89/sails-business-stack-generator.git"
+    "url": "git+https://github.com/cashflowy/business-stack-generator.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alexjv89/sails-business-stack-generator/issues"
+    "url": "https://github.com/cashflowy/business-stack-generator/issues"
   },
-  "homepage": "https://github.com/alexjv89/sails-business-stack-generator#readme",
+  "homepage": "https://github.com/cashflowy/business-stack-generator#readme",
   "dependencies": {
     "async": "^2.6.1",
     "cpx": "^1.5.0",
@@ -23,6 +23,6 @@
     "path": "^0.12.7"
   },
   "bin": {
-    "sails-business-stack-generator": "./index.js"
+    "business-stack-generator": "./index.js"
   }
 }
