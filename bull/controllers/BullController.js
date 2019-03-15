@@ -20,7 +20,8 @@ module.exports = {
 					job_stats:[],
 					overall_stats:counts,
 					repeats: repeats,
-					moment: require('moment-timezone')
+					moment: require('moment-timezone'),
+					layout: 'bull/layout'
 				}
 				res.view('bull/index',locals);
 			})
@@ -65,15 +66,16 @@ module.exports = {
 			var new_jobs=[];
 			jobs.forEach(function(job){
 				var nj=JSON.parse(JSON.stringify(job));
-				nj.timestamp=GeneralService.timeAgo(parseInt(job.timestamp));
-				nj.processedOn=GeneralService.timeAgo(parseInt(job.processedOn));
-				nj.finishedOn=GeneralService.timeAgo(parseInt(job.finishedOn));
+				nj.timestamp=BullService.timeAgo(parseInt(job.timestamp));
+				nj.processedOn=BullService.timeAgo(parseInt(job.processedOn));
+				nj.finishedOn=BullService.timeAgo(parseInt(job.finishedOn));
 				new_jobs.push(nj);
 			});
 			var locals={
 				state:req.params.state,
 				jobs:new_jobs,
 				o_jobs:jobs,
+				layout: 'bull/layout'
 			}
 			// res.send(locals);
 			res.view('bull/list_items',locals);

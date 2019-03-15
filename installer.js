@@ -6,13 +6,9 @@ var sails_folder = process.cwd();
 
 
 // install the latest version as dev dependency.
-require('child_process').execSync(
- 		'npm install --save-dev sails-business-stack-generator@latest',
-    	{stdio: 'inherit'}
-	);
-// 
+require('child_process').execSync('npm install --save-dev business-stack-generator');
 
-var package_folder = path.join(process.cwd(),'node_modules/sails-business-stack-generator');
+var package_folder = path.join(process.cwd(),'node_modules/business-stack-generator');
 module.exports={
 	installUserLogin:function(callback){
 
@@ -64,12 +60,17 @@ module.exports={
 		console.log(buf.toString());
 		callback(null);
 	},
-	installBull:function(callback){		
+	installBull:function(callback){
+		// install bull npm package
+		require('child_process').execSync('npm install --save bull');		
 		if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
 		    console.log('BullController already exists. It will be over written.');
 
 		cpx.copySync(package_folder+'/bull/controllers/*', sails_folder+'/api/controllers');
+		cpx.copySync(package_folder+'/bull/services/*', sails_folder+'/api/services');
+		cpx.copySync(package_folder+'/bull/config/*', sails_folder+'/config');
 		cpx.copySync(package_folder+'/bull/views/**', sails_folder+'/views');
+		cpx.copySync(package_folder+'/bull/bootstraps/**', sails_folder+'/bootstraps');
 		if(fs.existsSync(sails_folder+'/api/controllers/BullController.js') && fs.existsSync(sails_folder+'/views/bull/index.ejs')){
 			var buf = fs.readFileSync(package_folder+'/bull/text/post_install.txt');
 			console.log(buf.toString());

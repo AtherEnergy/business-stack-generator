@@ -1,6 +1,6 @@
 {
   "name": "business-stack-generator",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "This sets up a business stack on sailsjs",
   "main": "index.js",
   "scripts": {

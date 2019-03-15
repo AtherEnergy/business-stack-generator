@@ -2,20 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:fb="http://ogp.me/ns/fb#">
   <head>
-    <title><%=typeof title == 'undefined' ? 'Cashflowy' : title%></title>
-    <meta name="description" content="<%=typeof description == 'undefined' ? 'Cashflowy' : description%>"/>
-    <meta property="og:title" content="<%=typeof title == 'undefined' ? 'Cashflowy' : title%>" />
-    <meta property="og:description" content="<%=typeof description == 'undefined' ? 'Cashflowy' : description%>" />
-
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:site" content="@highlyreco"/>
-    <meta name="twitter:title" content="<%=typeof title == 'undefined' ? 'Cashflowy' : title%>"/>
-    <meta name="twitter:description" content="<%=typeof description == 'undefined' ? 'Cashflowy' : description%>"/>
-    
-    <%if(typeof image !== 'undefined'){%>
-      <meta property="og:image" content="<%- image%>"/>
-      <meta name="twitter:image" content="<%- image%>"/>
-    <%}%>
+    <title><%=typeof title == 'undefined' ? 'Bull' : title%></title>
 
     <!-- <meta name="twitter:creator" content="@nivi"> -->
     <!-- Viewport mobile tag for sensible mobile support -->
@@ -42,10 +29,7 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
-    <!--STYLES-->
-    <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <style>
         .hidden {
           display: none !important;
@@ -112,12 +96,8 @@
 
     -->
 
-    <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <script src="/js/chart.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <!--SCRIPTS END-->
-    <script src="/semantic/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
     <!-- include partials/quora_style_login  -->
 

@@ -20,20 +20,21 @@ BullController:{\
 },
 This assumes that you have 'isAdmin' policy and 'isAuthenticated' policy defined.
 
-3) ### Setup repeat jobs ###
-Create a file 'config/bull.js'
-Add this to config/bull.js
-module.exports.bull = {
-    //generate cron format using: https://crontab.guru
-    repeats: [
-        {
-            name: 'my_repeat_task_name',
-            active: true,
-            repeat: { cron: "*/10 * * * *" }, //repeat every 10 minutess
-            data: {}
-        }
-    ]
-}
+3) ### Update config/bootstrap.js
+async.eachSeries(_.values(require('include-all')({
+    dirname: __dirname + '/../bootstraps',
+    filter : /(.+Bootstrap)\.js$/,
+    excludeDirs : /^\.(git|svn)$/,
+    optional: true
+  })), function (bootmodule, callback) {
+    _.isFunction(bootmodule) && 
+      (bootmodule(callback), true) || callback();
+  }, 
+  cb); // bootstrap callback
+Make sure to add the callback
+
+4) ### Add your redis and repeat jobs ###
+Update the file 'config/bull.js' with your redis connection details and repeat tasks
 Start adding repeats jobs
 
 ------------------------------------------
