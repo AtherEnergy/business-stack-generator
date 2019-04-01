@@ -69,6 +69,7 @@ var installSpecific=function(callback){
 				'ratelimit-policy',
 				'sendgrid',
 				'trix',
+				'sentry'
 			]
 		},
 	]).then(answers => {
@@ -96,6 +97,9 @@ var installSpecific=function(callback){
 				break;
 			case 'trix':
 				installer.installTrix(callback);
+				break;
+			case 'sentry':
+				installer.installSentry(callback);
 				break;
 		}
 		// callback(null);

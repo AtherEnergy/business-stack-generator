@@ -90,4 +90,11 @@ module.exports={
 		");
 		callback(null);
 	},
+	installSentry:function(callback){
+		// install Sentry npm package
+		require('child_process').execSync('npm install --save @sentry/node');
+		var buf = fs.readFileSync(package_folder+'/sentry/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
+	}
 }

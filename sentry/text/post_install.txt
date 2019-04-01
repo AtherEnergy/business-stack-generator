@@ -1,0 +1,34 @@
+* Configure Sentry
+  You need to sign in to Sentry and create a new project which will give you an API key
+  
+* Configure Your Middleware with Sentry
+  Add this code to http.js
+  Require Sentry
+  const Sentry = require('@sentry/node');
+  Sentry.init({ dsn: process.env.SENTRY_DNS });// Add Key for Sentry to SENTRY_DNS for your environment
+  
+  Call this inside the Middleware  
+  sentryRequestHandler: Sentry.Handlers.requestHandler(),
+  sentryErrorHandler: Sentry.Handlers.errorHandler(),
+
+  Include Sentry in your order module
+  order: [
+    'sentryRequestHandler',// Should be at the top of order 
+    'sentryErrorHandler',// Should be after router
+  ],
+  //Order should be something like this
+  order: [
+    'sentryRequestHandler',
+    'cookieParser',
+    'session',
+    'passportInit',
+    'passportSession',
+    'jwt',
+    'bodyParser',
+    'compress',
+    'poweredBy',
+    'router',
+    'sentryErrorHandler',
+    'www',
+    'favicon',
+  ],
