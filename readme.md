@@ -21,7 +21,7 @@ cd my_sails_project
 # Install locally
 npm install --save-dev business-stack-generator@latest
 
-# run the command
+# run the command 
 ./node_module/business-stack-generator/index.js
 ```
 
