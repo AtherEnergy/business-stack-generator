@@ -9,6 +9,7 @@ module.exports = {
 
     attributes: {
       name: {type: 'string'},
+      description: {type: 'string'},
       users: {
         collection: 'user',
         via: 'groups'

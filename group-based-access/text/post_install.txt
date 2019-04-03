@@ -4,6 +4,8 @@
   'POST /users/create': { controller: 'admin',  action: 'create_user' },
   'GET /groups': { controller: 'admin',  action: 'list' },
   'POST /groups/create': { controller: 'admin',  action: 'create_group' },
+  'GET /group/:id': { controller: 'admin',  action: 'show_group' },
+  'POST /group/:gid/user/:uid': { controller: 'admin',  action: 'delete_user_from_group' },
 
 // Add this to layout.js
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

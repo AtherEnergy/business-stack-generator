@@ -40,5 +40,18 @@ module.exports = {
 			res.redirect('/users')
         })
     },
+    show_group: function (req, res) {
+        Group.findOne({ id: req.params.id}).populate('users').exec(function (err, group) {
+			if (err) return res.serverError(err);
+			res.view('./groups/show',{group : group})
+        })
+    },
+    delete_user_from_group: function (req, res) {
+        Group.removeFromCollection(req.params.gid, 'users').members([req.params.uid]).exec(function (err, group) {
+            if (err) return res.serverError(err);
+            path= '/group/' + req.params.gid
+			res.redirect(path)
+        })
+    },
 
 }

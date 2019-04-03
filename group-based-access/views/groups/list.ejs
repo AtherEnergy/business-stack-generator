@@ -8,6 +8,9 @@
 						<input type="text" placeholder="Name" name="name">
 					</div>
 					<div class="field">
+						<input type="text" placeholder="Description" name="description">
+					</div>
+					<div class="field">
 						<select name="users" class="multi-select search" multiple>
 							<option value="" disabled="disabled" selected="selected" >Select Users</option>
 							<% users.forEach(function(user,index) {%>
@@ -26,7 +29,8 @@
 				<tr>
 					<th>ID</th>
 					<th class="single line">Name</th>
-					<th class="single line">Users</th>
+					<th class="single line">Description</th>
+					<th class="single line">No. of Users</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,15 +38,14 @@
 					<tr>
 						<td><%=group.id%></td>
 						<td>
-							<%= group.name %>
+							<a href="/group/<%= group.id %>"><%= group.name %></a>
 						</td>
 						<td>
-							<% if(group.users){ %>
-                                <% group.users.forEach(function(user,index) {%>
-                                    <button class="mini ui basic button" style="margin-bottom: 5px;border: 1px solid #00b5ad!important">
-                                        <%= user.name %> 
-                                    </button>
-                                <% }) %>  
+							<%= group.description %>
+						</td>
+						<td>
+							<% if(group.users.length >  0){ %>
+                               <%= group.users.length %>
                             <%}%>
 						</td>
 					</tr>
