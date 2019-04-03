@@ -1,0 +1,65 @@
+<div>
+	<br><br><br>
+	<div class='ui container'>
+		<h3>List of Users
+			<form action="/users/create" method="POST" class="ui form" style="float: right;margin-bottom: 2%;">
+				<div class="fields">
+					<div class="field"> 
+						<input type="text" name="name" placeholder="Name" required>
+					</div>
+					<div class="field">
+						<input type="email" name="email" placeholder="Email" required style="text-transform:none;">
+					</div>
+					<div class="field">
+						<select name="groups" class="multi-select search" multiple>
+							<option value="" disabled="disabled" selected="selected" >Select groups</option>
+							<% groups.forEach(function(group,index) {%>
+								<option name="group" value="<%= group.id %>"><%= group.name%></option>
+							<% }) %>   
+						</select>
+					</div>
+					<div class="field">
+						<button class="ui button" type="submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</h3>
+		<table class="ui celled structured table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th class="single line">Name</th>
+					<th class="single line">Email</th>
+					<th class="single line">Groups</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% users.forEach(function(user){%>
+					<tr>
+						<td><%=user.id%></td>
+						<td>
+							<%= user.name %>
+						</td>
+						<td>
+							<%= user.email %>
+						</td>
+						<td>
+							<% if(user.groups){ %>
+                            
+                                <% user.groups.forEach(function(group,index) {%>
+                                    <button class="mini ui basic button" style="margin-bottom: 5px;border: 1px solid #00b5ad!important">
+                                        <%= group.name %> 
+                                    </button>
+                                <% }) %>  
+                            
+                            <%}%>
+						</td>
+					</tr>
+				<%})%>
+			</tbody>
+		</table>
+			
+			
+	</div>
+	<br><br><br>
+</div>

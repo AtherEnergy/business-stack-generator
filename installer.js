@@ -96,5 +96,15 @@ module.exports={
 		var buf = fs.readFileSync(package_folder+'/sentry/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
+	},
+	installGroupAccess:function(callback){
+		require('child_process').execSync('npm install --save bcryptjs');
+		require('child_process').execSync('npm install --save async');
+		cpx.copySync(package_folder+'/group-based-access/controllers/*', sails_folder+'/api/controllers');
+		cpx.copySync(package_folder+'/group-based-access/models/*', sails_folder+'/api/models');
+		cpx.copySync(package_folder+'/group-based-access/views/**', sails_folder+'/views');
+		var buf = fs.readFileSync(package_folder+'/group-based-access/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
 	}
 }

@@ -33,7 +33,8 @@ npm install --save-dev business-stack-generator@latest
 - [x] Semantic UI
 - [x] Trix
 - [x] User Login
-- [x] Sentry  
+- [x] Sentry
+- [x] Group Access Control  
 - [ ] Helmet
 - [ ] Vue
 - [ ] Logstash

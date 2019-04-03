@@ -69,7 +69,8 @@ var installSpecific=function(callback){
 				'ratelimit-policy',
 				'sendgrid',
 				'trix',
-				'sentry'
+				'sentry',
+				'group-based-access'
 			]
 		},
 	]).then(answers => {
@@ -100,6 +101,9 @@ var installSpecific=function(callback){
 				break;
 			case 'sentry':
 				installer.installSentry(callback);
+				break;
+			case 'group-based-access':
+				installer.installGroupAccess(callback);
 				break;
 		}
 		// callback(null);

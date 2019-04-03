@@ -1,0 +1,14 @@
+// Add the below routes to routes.js
+
+  'GET /users': { controller: 'admin',  action: 'list' },
+  'POST /users/create': { controller: 'admin',  action: 'create_user' },
+  'GET /groups': { controller: 'admin',  action: 'list' },
+  'POST /groups/create': { controller: 'admin',  action: 'create_group' },
+
+// Add this to layout.js
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.multi-select').dropdown();
+    });
+  </script>
