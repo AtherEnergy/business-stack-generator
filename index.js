@@ -69,6 +69,9 @@ var installSpecific=function(callback){
 				'ratelimit-policy',
 				'sendgrid',
 				'trix',
+				'sentry',
+				'group-based-access',
+				'paytmPayments'
 			]
 		},
 	]).then(answers => {
@@ -96,6 +99,15 @@ var installSpecific=function(callback){
 				break;
 			case 'trix':
 				installer.installTrix(callback);
+				break;
+			case 'sentry':
+				installer.installSentry(callback);
+				break;
+			case 'group-based-access':
+				installer.installGroupAccess(callback);
+				break;
+			case 'paytmPayments':
+				installer.installPaytmPayments(callback);
 				break;
 		}
 		// callback(null);

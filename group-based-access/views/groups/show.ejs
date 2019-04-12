@@ -1,0 +1,35 @@
+<div>
+	<br><br><br>
+	<div class='ui container'>
+        <h3>Group - <%= group.name %></h3>
+		<table class="ui celled structured table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th class="single line">Name</th>
+					<th class="single line">Email</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% group.users.forEach(function(user){%>
+					<tr>
+						<td><%= user.id%></td>
+						<td>
+							<%= user.name %>
+						</td>
+						<td>
+							<%= user.email %>
+						</td>
+						<td>
+							<form action="/group/<%= group.id  %>/user/<%= user.id %>" method="POST">
+								<button class="ui submit button" onclick="return confirm('Are you sure you want to Delete?')" ><i class="trash alternate icon"></i>                           Delete</button>
+							</form>
+						</td>
+					</tr>
+				<%})%>
+			</tbody>
+		</table>
+	</div>
+	<br><br><br>
+</div>

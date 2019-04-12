@@ -1,0 +1,21 @@
+<center><h1>Please do not refresh this page...</h1></center>
+<form method="post" action="https://securegw-stage.paytm.in/theia/processTransaction" name="f1">
+    <table border="1">
+        <tbody>
+            <input  name="MID" value="<%= data.MID %>">
+            <input  name="WEBSITE" value="<%= data.WEBSITE %>">
+            <input  name="ORDER_ID" value="<%= data.ORDER_ID %>">
+            <input  name="CUST_ID" value="<%= data.CUST_ID %>">
+            <input  name="MOBILE_NO" value="<%= data.MOBILE_NO %>">
+            <input  name="EMAIL" value="<%= data.EMAIL %>">
+            <input  name="INDUSTRY_TYPE_ID" value="<%= data.INDUSTRY_TYPE_ID %>">
+            <input  name="CHANNEL_ID" value="<%= data.CHANNEL_ID %>">
+            <input  name="TXN_AMOUNT" value="<%= data.TXN_AMOUNT %>">
+            <input  name="CALLBACK_URL" value="<%= data.CALLBACK_URL %>">
+            <input  name="CHECKSUMHASH" value="<%= data.CHECKSUMHASH %>">
+        </tbody>
+    </table>
+<script type="text/javascript">
+    document.f1.submit();
+</script>
+</form>

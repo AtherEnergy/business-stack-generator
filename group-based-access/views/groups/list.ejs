@@ -1,0 +1,57 @@
+<div>
+	<br><br><br>
+	<div class='ui container'>
+		<h3>List of Groups
+			<form action="/groups/create" method="POST" class="ui form" style="float:right">
+				<div class="fields">
+					<div class="field">
+						<input type="text" placeholder="Name" name="name">
+					</div>
+					<div class="field">
+						<input type="text" placeholder="Description" name="description">
+					</div>
+					<div class="field">
+						<select name="users" class="multi-select search" multiple>
+							<option value="" disabled="disabled" selected="selected" >Select Users</option>
+							<% users.forEach(function(user,index) {%>
+								<option name="user" value="<%= user.id %>"><%= user.name %></option>
+							<% }) %>   
+						</select>
+					</div>
+					<div class="field">
+						<button class="ui button" type="submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</h3>
+		<table class="ui celled structured table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th class="single line">Name</th>
+					<th class="single line">Description</th>
+					<th class="single line">No. of Users</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% groups.forEach(function(group){%>
+					<tr>
+						<td><%=group.id%></td>
+						<td>
+							<a href="/group/<%= group.id %>"><%= group.name %></a>
+						</td>
+						<td>
+							<%= group.description %>
+						</td>
+						<td>
+							<% if(group.users.length >  0){ %>
+                               <%= group.users.length %>
+                            <%}%>
+						</td>
+					</tr>
+				<%})%>
+			</tbody>
+		</table>
+	</div>
+	<br><br><br>
+</div>
