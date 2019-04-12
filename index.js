@@ -70,7 +70,8 @@ var installSpecific=function(callback){
 				'sendgrid',
 				'trix',
 				'sentry',
-				'group-based-access'
+				'group-based-access',
+				'paytmPayments'
 			]
 		},
 	]).then(answers => {
@@ -104,6 +105,9 @@ var installSpecific=function(callback){
 				break;
 			case 'group-based-access':
 				installer.installGroupAccess(callback);
+				break;
+			case 'paytmPayments':
+				installer.installPaytmPayments(callback);
 				break;
 		}
 		// callback(null);

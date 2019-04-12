@@ -106,5 +106,14 @@ module.exports={
 		var buf = fs.readFileSync(package_folder+'/group-based-access/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
+	},
+	installPaytmPayments:function(callback){
+		require('child_process').execSync('npm install --save random-number');
+		cpx.copySync(package_folder+'/paytmPayment/controllers/*', sails_folder+'/api/controllers');
+		cpx.copySync(package_folder+'/paytmPayment/paytmFiles/**', sails_folder + '/');
+		cpx.copySync(package_folder+'/paytmPayment/views/**', sails_folder+'/views');
+		var buf = fs.readFileSync(package_folder+'/paytmPayment/text/post_install.txt');
+		console.log(buf.toString());
+		callback(null);
 	}
 }

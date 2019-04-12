@@ -1,0 +1,10 @@
+//Add these routes to your routes.ejs
+  'POST /generate_checksum': { controller: 'payment',  action: 'generate_checksum' },
+  'POST /verify_checksum': { controller: 'payment',  action: 'verify_checksum' },
+  '/payments': { view: 'payments/payment' },
+
+
+// Add MID and Merchant Key provided by Paytm to your Environment Variables
+   MID: "Your MID",MERCHANT_KEY : "Your Merchant Key"
+
+// Visit '/payments' to make payment using Paytm
