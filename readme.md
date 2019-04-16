@@ -21,8 +21,8 @@ cd my_sails_project
 # Install locally
 npm install --save-dev business-stack-generator@latest
 
-# run the command 
-./node_module/business-stack-generator/index.js
+# run the command
+./node_modules/business-stack-generator/index.js
 ```
 
 ### Supports
@@ -34,7 +34,7 @@ npm install --save-dev business-stack-generator@latest
 - [x] Trix
 - [x] User Login
 - [x] Sentry
-- [x] Group Access Control  
+- [x] Group Access Control
 - [ ] Helmet
 - [ ] Vue
 - [ ] Logstash
