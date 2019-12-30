@@ -17,6 +17,7 @@ module.exports = {
 			type:'string',
 			required:true,
 			unique:true,
+			isEmail: true
 		},
 		details:{ 
 			type:'json',

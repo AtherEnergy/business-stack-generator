@@ -4,13 +4,11 @@
 
   #######################################
   Manual intervention required: 
-  
-  ### 1) Add this: 
-    "sails-helper": "git+https://git@github.com/aptro/sails-helper.git#1.2.0",
-  to - package.json
-  --------
-  ### 2) Make sure your http middleware looks something like this: 
+
+  ### 1) Make sure your http middleware looks something like this: 
     middleware: {
+      startRequestTimer: require('sails-helper').startRequestTimer,
+      myRequestLogger: require('sails-helper').requestLogger,
       order: [
         'startRequestTimer',
         'cookieParser',
@@ -24,11 +22,10 @@
         'router',
         'www',
         'favicon'
-      ],
-      startRequestTimer: require('sails-helper').startRequestTimer,
-      myRequestLogger: require('sails-helper').requestLogger,
+      ]
     }
-    Basically 'startRequestTimer' should be at the top. 'myRequestLogger' can come after 'bodyParser'
-  ### 3) Production log level
+  Basically 'startRequestTimer' should be at the top. 'myRequestLogger' can come after 'bodyParser'
+  --------
+  ### 2) Production log level
     By default sails 1.x.x has log level as debug in production.js request log is printed as info. comment out log level in production.js
 ------------------------------------------

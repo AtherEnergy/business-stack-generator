@@ -6,22 +6,15 @@
  */
 
 var passport = require('passport');
-var request = require('request');
 var async = require('async');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 module.exports = {
-
-	// _config: {
-	//     actions: false,
-	//     shortcuts: false,
-	//     rest: false
-	// },
-
+	
 	login: function(req, res) {
 		if(req.user)
-			return res.redirect('/dashboard');
+			return res.redirect('/');
 		var locals={
 			error:false,
 			email:''
@@ -31,10 +24,6 @@ module.exports = {
 			redirect = decodeURIComponent(req.query.redirect);
 		if(req.body){
 			locals.email=req.body.email;
-			if(!GeneralService.validateEmail(req.body.email)){
-				locals.error='email entered is not a valid email'
-				return res.view('login',locals);
-			}
 			passport.authenticate('local', function(err, user, info) {
 				console.log('in passport.authenticate callback');
 				if ((err) || (!user)) {
@@ -73,7 +62,7 @@ module.exports = {
 	signup:function(req,res){
 
 		if(req.user)
-			return res.redirect('/dashboard');
+			return res.redirect('/');
 		var locals={
 			error:false,
 			user:{
@@ -83,7 +72,6 @@ module.exports = {
 			}
 		}
 		if(req.body){
-			
 			var user = {
 				email:req.body.email,
 				name:req.body.name,
@@ -91,16 +79,14 @@ module.exports = {
 				
 			}
 			locals.user=user;
-			if(!GeneralService.validateEmail(locals.user.email)){
-				locals.error='email entered is not a valid email'
-				return res.view('signup',locals);
-			}
 				
 			User.create(user).exec(function(err,u){
 				if(err){
-
-					if(err.code=='E_VALIDATION' && err.invalidAttributes && err.invalidAttributes.email){
+					if(err.code=='E_UNIQUE' && err.attrNames && err.attrNames.indexOf('email') > -1	){
 						locals.error='You have already registed with that email address. <a href="/login">Login in instead</a>'
+						return res.view('signup',locals);
+					}else if(err.code == 'E_INVALID_NEW_RECORD' && err.message.includes('was not a valid email address')){
+						locals.error='please enter a valid email address'
 						return res.view('signup',locals);
 					}
 					else

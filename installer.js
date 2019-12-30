@@ -37,6 +37,8 @@ module.exports={
 		callback(null);
 	},
 	installLogging:function(callback){
+		// install sails-helper
+		require('child_process').execSync('npm install --save sails-helper');
 		cpx.copySync(package_folder+'/logging/config/**', sails_folder+'/config');
 		var buf = fs.readFileSync(package_folder+'/logging/text/post_install.txt');
 		console.log(buf.toString());
