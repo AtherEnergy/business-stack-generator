@@ -1,6 +1,6 @@
 {
   "name": "business-stack-generator",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "This sets up a business stack on sailsjs",
   "main": "index.js",
   "scripts": {
@@ -8,18 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cashflowy/business-stack-generator.git"
+    "url": "git+https://github.com/AtherEnergy/business-stack-generator.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cashflowy/business-stack-generator/issues"
+    "url": "https://github.com/AtherEnergy/business-stack-generator/issues"
   },
-  "homepage": "https://github.com/cashflowy/business-stack-generator#readme",
+  "homepage": "https://github.com/AtherEnergy/business-stack-generator#readme",
   "dependencies": {
     "async": "^2.6.1",
     "cpx": "^1.5.0",
     "inquirer": "^6.2.1",
+    "lodash": "^4.17.15",
     "path": "^0.12.7"
   },
   "bin": {

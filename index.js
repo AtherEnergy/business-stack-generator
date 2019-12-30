@@ -5,11 +5,12 @@ var inquirer = require('inquirer');
 var async = require('async');
 var path = require('path');
 var fs = require('fs');
-var installer =  require('./installer');
+var installer = require('./installer');
+var _ = require('lodash');
 
-var initialize=function(outer_cb){
+var initialize = function (outer_cb) {
 	async.series({
-		installBull:function(callback){
+		installBull: function (callback) {
 			console.log('\n\n\n---------------------------------------');
 			inquirer.prompt([
 				{
@@ -18,15 +19,15 @@ var initialize=function(outer_cb){
 					message: 'Do you want to install Bull?',
 				},
 			]).then(answers => {
-				if(answers.bull){
+				if (answers.bull) {
 					installer.installBull(callback);
-				}else{
+				} else {
 					console.log('Bull installation skipped');
 					callback(null);
 				}
 			});
 		},
-		installSomethingElse:function(callback){
+		installSomethingElse: function (callback) {
 			console.log('\n\n\n---------------------------------------');
 			inquirer.prompt([
 				{
@@ -35,32 +36,32 @@ var initialize=function(outer_cb){
 					message: 'Do you want to install slack service?',
 				},
 			]).then(answers => {
-				if(answers.somthing){
+				if (answers.somthing) {
 					console.log(JSON.stringify(answers, null, '  '));
 					// cpx.copySync('kue/controllers/*', '../../api/controllers');
 					// cpx.copySync('kue/views/**', '../../views');
 					callback(null);
-				}else{
+				} else {
 					console.log('Slack installation skipped');
 					callback(null);
 				}
 			});
 		}
 
-	},function(err,results){
+	}, function (err, results) {
 		// console.log('\n\n\n---------------------------------------');
 		// console.log("everything done");
 		outer_cb(err);
 	})
 }
 
-var installSpecific=function(callback){
+var installSpecific = function (callback) {
 	inquirer.prompt([
 		{
 			type: 'list',
 			name: 'install_what',
 			message: 'What would you like to install?',
-			choices:[
+			choices: [
 				'bull',
 				'user-login',
 				'kue',
@@ -75,7 +76,7 @@ var installSpecific=function(callback){
 			]
 		},
 	]).then(answers => {
-		switch (answers.install_what){
+		switch (answers.install_what) {
 			case 'bull':
 				installer.installBull(callback);
 				break;
@@ -114,45 +115,58 @@ var installSpecific=function(callback){
 	});
 }
 
-var checkInstallation=function(callback){
+var checkInstallation = function (callback) {
 	callback(null);
 }
 
 
-var main = function(callback){
+var main = function (callback) {
+	// check if business-stack-generator is installed as dev dependency
+	var package = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+
+	if (!_.get(package, 'devDependencies["business-stack-generator"]')) {
+		console.log("\--------------------------------------------------------------------------------\
+			\ninstall business-stack-generator package as  dev dependencies \
+			\n\
+			\nnpm install --save-dev business-stack-generator\
+			\n--------------------------------------------------------------------------------\
+		");
+		return callback();
+	}
+
 	inquirer.prompt([
 		{
 			type: 'list',
 			name: 'first_action',
 			message: 'What would you like to do?',
-			choices:['initialize','install','check_installation']
+			choices: ['initialize', 'install', 'check_installation']
 		},
 	]).then(answers => {
 		// this should show up
 
 		// console.log(answers);
 		// console.log(answers.first_action);
-		switch (answers.first_action){
-			case 'initialize': 
+		switch (answers.first_action) {
+			case 'initialize':
 				// console.log('going to do initialize');
 				initialize(callback);
 				break;
-			case 'install': 
+			case 'install':
 				// console.log('going to do install');
 				installSpecific(callback);
 				break;
-			case 'check_installation': 
+			case 'check_installation':
 				// console.log('going to do check_installation');
 				initialize(callback);
 				break;
-				
+
 		}
 
 	});
 	// callback(null);
 }
 
-main(function(err,results){
+main(function (err, results) {
 	console.log('we are all done');
 })
 

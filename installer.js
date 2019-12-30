@@ -4,10 +4,6 @@ var cpx = require('cpx');
 
 var sails_folder = process.cwd();
 
-
-// install the latest version as dev dependency.
-require('child_process').execSync('npm install --save-dev business-stack-generator');
-
 var package_folder = path.join(process.cwd(),'node_modules/business-stack-generator');
 module.exports={
 	installUserLogin:function(callback){
@@ -32,6 +28,8 @@ module.exports={
 		callback(null);
 	},
 	installSemanticUI:function(callback){
+		// install jquery dependency
+		cpx.copySync(package_folder+'/assets/jquery/**', sails_folder+'/assets/dependencies/');
 		cpx.copySync(package_folder+'/assets/semantic/**', sails_folder+'/assets/dependencies/sematic');
 		console.log("\--------------------------------------------------------------------------------\
 			\n Semantic installed \
