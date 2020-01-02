@@ -8,7 +8,19 @@
   ### 1) Make sure your http middleware looks something like this: 
     middleware: {
       startRequestTimer: require('sails-helper').startRequestTimer,
-      myRequestLogger: require('sails-helper').requestLogger,
+      myRequestLogger: require('sails-helper').requestLogger({
+        kinesis: {
+          // enable on production
+          enabled: process.env.NODE_ENV == "production" ? true : false,
+          PartitionKey: process.env.KINESIS_PARTITION_KEY,
+          StreamName: process.env.KINESIS_STREAM_NAME,
+          aws: {
+            accessKeyId: process.env.AWS_KEY,
+            secretAccessKey: process.env.AWS_SECRET,
+            region: process.env.AWS_REGION
+          }
+        }
+      }),
       order: [
         'startRequestTimer',
         'cookieParser',
@@ -25,7 +37,18 @@
       ]
     }
   Basically 'startRequestTimer' should be at the top. 'myRequestLogger' can come after 'bodyParser'
+  # ENV variable to be added
+    KINESIS_PARTITION_KEY
+    KINESIS_STREAM_NAME
+    AWS_KEY
+    AWS_SECRET
+    AWS_REGION
   --------
   ### 2) Production log level
     By default sails 1.x.x has log level as debug in production.js request log is printed as info. comment out log level in production.js
-------------------------------------------
+  ------------------------------------------
+  ### 3) Configure kinesis
+  values to be replaced:
+  replace - firehose.ap-southeast-1.amazonaws.com with your firehose url
+                   nginx_access_log_stream with your firehose nginx access stream
+                   nginx_error_log_stream with your firehose nginx error stream 

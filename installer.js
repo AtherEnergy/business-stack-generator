@@ -40,6 +40,8 @@ module.exports={
 		// install sails-helper
 		require('child_process').execSync('npm install --save sails-helper');
 		cpx.copySync(package_folder+'/logging/config/**', sails_folder+'/config');
+		// install kinesis ebextensions 
+		cpx.copySync(package_folder+'/logging/.ebextensions/**', sails_folder+'/.ebextensions');
 		var buf = fs.readFileSync(package_folder+'/logging/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
