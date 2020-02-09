@@ -1,6 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var cpx = require('cpx');
+var npm = require('npm');
 
 var sails_folder = process.cwd();
 
@@ -40,7 +41,7 @@ module.exports={
 		// install sails-helper
 		require('child_process').execSync('npm install --save sails-helper');
 		cpx.copySync(package_folder+'/logging/config/**', sails_folder+'/config');
-		// install kinesis ebextensions 
+		// install kinesis ebextensions
 		cpx.copySync(package_folder+'/logging/.ebextensions/**', sails_folder+'/.ebextensions');
 		var buf = fs.readFileSync(package_folder+'/logging/text/post_install.txt');
 		console.log(buf.toString());
@@ -61,7 +62,7 @@ module.exports={
 	},
 	installBull:function(callback){
 		// install bull npm package
-		require('child_process').execSync('npm install --save bull');		
+		require('child_process').execSync('npm install --save bull');
 		if (fs.existsSync(sails_folder+'/api/controllers/BullController.js'))
 		    console.log('BullController already exists. It will be over written.');
 
@@ -114,5 +115,67 @@ module.exports={
 		var buf = fs.readFileSync(package_folder+'/paytmPayment/text/post_install.txt');
 		console.log(buf.toString());
 		callback(null);
+	},
+	installSwagger: function(callback) {
+
+		// Runs all the functions in chain in order,
+		// in case of success cb(null) is called,
+		// else cb(first error).
+		function serial(inputArray, cb) {
+			// recursive function
+			function action(index) {
+				if (index < inputArray.length) {
+					var fn = inputArray[index];
+					fn((err) => {
+						if (!err) {
+							action(index + 1);
+						} else {
+							cb(err);
+						}
+					});
+				} else {
+					cb();
+				}
+			}
+			action(0);
+		}
+
+		function copy(src, dest) {
+			return cb => {
+				src = package_folder + src;
+				dest = sails_folder + dest;
+				cpx.copy(src, dest, cb);
+			}
+		}
+
+		function initNpm() {
+			return cb => npm.load(cb);
+		}
+
+		function install(package) {
+			return cb => npm.commands.install([package], cb);
+		}
+
+		function printInstructions(cb) {
+			fs.readFile(package_folder + '/swagger/instructions.txt', {
+				encoding: 'utf8',
+			}, (err, data) => {
+				if (!err) {
+					console.log(data);
+				}
+				cb(err);
+			})
+		}
+
+		serial([
+			copy('/swagger/controllers/*', '/api/controllers'),
+			copy('/swagger/config/*', '/config'),
+			copy('/swagger/views/**', '/views'),
+			initNpm(),
+			install("swagger-ui-dist@3.25.0"),
+			install("swagger-ui-themes@3.0.1"),
+			install("gitnanji/sails-hook-swagger-generator#sails1.0_patch"),
+			printInstructions,
+		], callback);
 	}
 }

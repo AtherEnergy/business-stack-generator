@@ -1,0 +1,36 @@
+
+Update policies to access SwaggerControler, or add at a path level
+
+    'SwaggerController': {
+		'*': true,
+	},
+    
+Add these routes:
+
+	"GET /docs/:name": {
+		action: 'docsDisplay',
+		controller: 'SwaggerController',
+		swagger: {
+			summary: "Serves swagger UI",
+			description: "Swagger UI for each set",
+		}
+	},
+
+	"GET /swagger/:name": {
+		action: 'jsonDisplay',
+		controller: 'SwaggerController',
+		swagger: {
+			summary: "Serves OpenAPI spec",
+			description: "OpenAPI spec as JSON for each set",
+		}
+	},
+
+Add these to grunt tasks/copy.
+
+    {
+        expand: true,
+        cwd: './node_modules/swagger-ui-dist',
+        src: ['**/*.!(coffee|less)'],
+        dest: '.tmp/public/docs'
+    },
+    

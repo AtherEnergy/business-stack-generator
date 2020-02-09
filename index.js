@@ -27,6 +27,24 @@ var initialize = function (outer_cb) {
 				}
 			});
 		},
+		installSwagger: function (callback) {
+			console.log('\n\n\n---------------------------------------');
+			inquirer.prompt([
+				{
+					type: 'confirm',
+					name: 'swagger',
+					message: 'Do you want to install Swagger?',
+				},
+			]).then(answers => {
+				if (answers.swagger) {
+					installer.installSwagger(callback);
+				} else {
+					console.log('Swagger installation skipped');
+					callback(null);
+				}
+			});
+
+		},
 		installSomethingElse: function (callback) {
 			console.log('\n\n\n---------------------------------------');
 			inquirer.prompt([
@@ -71,6 +89,7 @@ var installSpecific = function (callback) {
 				'sendgrid',
 				'trix',
 				'sentry',
+				'swagger',
 				'group-based-access',
 				'paytmPayments'
 			]
@@ -103,6 +122,9 @@ var installSpecific = function (callback) {
 				break;
 			case 'sentry':
 				installer.installSentry(callback);
+				break;
+			case 'swagger':
+				installer.installSwagger(callback);
 				break;
 			case 'group-based-access':
 				installer.installGroupAccess(callback);
