@@ -26,6 +26,7 @@ module.exports.log = {
 
 	// level: 'info'
 	level: 'info',
-	inspect: false
+	inspect: false,
+	custom: require('sails-helper').getLogger()
 
 };
